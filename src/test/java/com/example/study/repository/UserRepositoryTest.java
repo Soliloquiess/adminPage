@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class UserRepositoryTest extends StudyApplicationTests {
@@ -32,7 +33,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
     @Test
 //    public void read(@RequestParam Long id){    //get에 대해 아이디 받고 그걸 리턴시키는 형태로 작성도 가능
 
-    public void read(){    
+    public void read(){
         Optional<User> user= userRepository.findById(2L);
         //2L는 lonlong이고 옵셔널은 제너릭 타입으로 받게 됨.
 
@@ -44,8 +45,22 @@ public class UserRepositoryTest extends StudyApplicationTests {
         //return user.get();
 
     }
-    public void update(){
 
+    @Test
+    public void update(){
+        Optional<User> user= userRepository.findById(2L);   //2번 셀렉트
+        //2L는 lonlong이고 옵셔널은 제너릭 타입으로 받게 됨.
+
+        user.ifPresent(selectUser->{
+           selectUser.setAccount("PPPP");
+           selectUser.setUpdatedAt(LocalDate.now());
+           selectUser.setUpdatedBy("update Method");
+           //값은 이거만 바꿨지만  jpa에서는 셀렉트유저값에 들어있는 특정 아이디값을 검색하고 한번더 꺼낸 다음
+            //한번 더 업데이트 쳐줌.
+
+           userRepository.save(selectUser);
+           //쿼리문 통해 특정 유저 셀렉트 해주고 아이디를 한번 더 셀렉트 값 변경되서 값 찾고 그 값에 대해 업데이트 시킴.
+        });
     }
     public void delete(){
 
