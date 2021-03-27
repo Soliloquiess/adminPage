@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor//기본생성자.
@@ -28,6 +30,10 @@ public class User { //이 클래스 이름은 디비의 이름과 동일하게(�
     private LocalDate updatedAt;
     private String updatedBy;
 
+    //1:N 유저입장에서 자신은 1, 오더디테일은 N
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "user")
+    private List<OrderDetail> orderDetailList;
+    //user클래스에서는 orderdetail 클래스안에 user 매핑시키겠다는 뜻.
 
 }
 

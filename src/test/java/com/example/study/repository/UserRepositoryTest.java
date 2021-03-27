@@ -2,6 +2,7 @@ package com.example.study.repository;
 
 
 import com.example.study.StudyApplicationTests;
+import com.example.study.model.entity.Item;
 import com.example.study.model.entity.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,19 +35,32 @@ public class UserRepositoryTest extends StudyApplicationTests {
         System.out.println("newUser:"+newUser);
     }
     @Test
+    @Transactional
 //    public void read(@RequestParam Long id){    //get에 대해 아이디 받고 그걸 리턴시키는 형태로 작성도 가능
 
     public void read(){
-        Optional<User> user= userRepository.findById(2L);
+        Optional<User> user= userRepository.findById(4L);
         //2L는 lonlong이고 옵셔널은 제너릭 타입으로 받게 됨.
 
         user.ifPresent(selectUser->{       //있을때만 실행에 대한 결과를 받겠다.
             //seleectUser가 있으면 그 값을 꺼내 달라는 뜻.
-            System.out.println("user:"+selectUser);
-            System.out.println("email:" + selectUser.getEmail());
+           selectUser.getOrderDetailList().stream().forEach(detail->{
+//             Item item = detail.getItem();
+//            System.out.println(item);
+               System.out.println(detail.getItem().getId());
+           });
         });
+
         //return user.get();
 
+
+//        user.ifPresent(selectUser->{       //있을때만 실행에 대한 결과를 받겠다.
+//            //seleectUser가 있으면 그 값을 꺼내 달라는 뜻.
+//            System.out.println("user:"+selectUser);
+//            System.out.println("email:" + selectUser.getEmail());
+//        });
+        //return user.get();
+//        });
     }
 
     @Test
