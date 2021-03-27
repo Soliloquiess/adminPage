@@ -39,7 +39,8 @@ public class UserRepositoryTest extends StudyApplicationTests {
 //    public void read(@RequestParam Long id){    //get에 대해 아이디 받고 그걸 리턴시키는 형태로 작성도 가능
 
     public void read(){
-        Optional<User> user= userRepository.findById(7L);
+        //select * from user where id=?
+        Optional<User> user= userRepository.findByAccount("TestUser03");
         //2L는 lonlong이고 옵셔널은 제너릭 타입으로 받게 됨.
 
         user.ifPresent(selectUser->{       //있을때만 실행에 대한 결과를 받겠다.
