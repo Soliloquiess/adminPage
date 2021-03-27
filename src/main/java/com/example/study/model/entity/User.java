@@ -4,11 +4,13 @@ package com.example.study.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 @Data
 @AllArgsConstructor
+@NoArgsConstructor//기본생성자.
 @Entity //엔티티라는 거 정의
 //@Table(name = "user")   //table을 유저라는 테이블을 가진 곳에 매핑시킬거다 선언
 //근데 클래스의 이름이 동일하면 굳이 table 어노테이션을 설정 안해줘도 된다.
@@ -26,9 +28,7 @@ public class User { //이 클래스 이름은 디비의 이름과 동일하게(�
     private LocalDate updatedAt;
     private String updatedBy;
 
-    public User() { //이 부분은 에러나서 넣어줬다. Allargs넣으니까 에러나는데 ㅇㅅㅇ..
 
-    }
 }
 
 //기본적으로 이 위까지가 mysql과 테이블 어떻게 할지 설정 완료
