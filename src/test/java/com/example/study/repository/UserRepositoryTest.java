@@ -3,10 +3,13 @@ package com.example.study.repository;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -62,7 +65,29 @@ public class UserRepositoryTest extends StudyApplicationTests {
            //쿼리문 통해 특정 유저 셀렉트 해주고 아이디를 한번 더 셀렉트 값 변경되서 값 찾고 그 값에 대해 업데이트 시킴.
         });
     }
+//    @RequestMapping("/api/user")    //딜리트도 매핑해줘야한다.(근데 일단은 지우고)
+    @Test
+    @Transactional  //마지막 데이터 남으면 그거에 대한 동작은 안 일어남.(아예 비면 그건 데이터베이스의 의미가 없어서)
     public void delete(){
+        Optional<User> user= userRepository.findById(1L);   //2번 셀렉트
+        //2L는 lonlong이고 옵셔널은 제너릭 타입으로 받게 됨.
 
+        Assert.assertTrue(user.isPresent()); // 반드시 값이 있는 값 통과해서
+
+        user.ifPresent(selectUser->{
+            userRepository.delete(selectUser);
+        });
+
+        //이제 유저가 진짜 삭제 됐는지 확인해보자,(딜리트 된 유저 삭제 되었는지 확인)
+        Optional<User> deleteUser = userRepository.findById(1L);
+
+        Assert.assertFalse(deleteUser.isPresent()); //false 그값이 삭제해서 반드시 false가 된다
+//테스트 코드 쓰려면 Assert 사용하는게 더 좋다.
+        //        if(deleteUser.isPresent()){
+//            System.out.println("데이터 존재: "+ deleteUser.get());
+//        }else{
+//            System.out.println("데이터 삭제 데이터 없음. ");
+//
+//        }
     }
 }
