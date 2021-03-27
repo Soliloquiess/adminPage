@@ -22,17 +22,18 @@ public class User { //이 클래스 이름은 디비의 이름과 동일하게(�
     @Id//식별자에 대해선 Id를 붙이고
     @GeneratedValue(strategy = GenerationType.IDENTITY) //어떤식으로 관리할지 전략 설정
     private Long id;
-//    @Column(name = "account")   이거도 마찬가지로 이름이 동일하면 안 써줘도 된다.
     private String account;
     private String password;
+
+    private String status;
     private String email;
     private String phoneNumber;
     private LocalDateTime registeredAt;
 
     private LocalDateTime unregisteredAt;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
 

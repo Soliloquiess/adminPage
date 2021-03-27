@@ -12,13 +12,5 @@ public interface UserRepository extends JpaRepository<User,Long> { //JPA의 레�
     //user라는 값의 아이디가 Long이라 Long을 넣어주는 것.
     //그리고 이렇게 선언된 레파지토리로 CRUD를 할 수 있다.
 
-    //select *from user where account =? <<test03,test04
-    Optional<User> findByAccount(String account);
-//    Optional<User> findByAccount(String e); //이런식으로 파라미터 변수명 달라도 되지만 일반적으로는 컬럼명과 변수명 같게 하는게 일반적이다.
-
-    Optional<User> findByEmail(String email);
-
-    //select *from user where account =? and email=?
-    //이런식으로 쿼리문을 메서드 형태로 만든다고 해서 쿼리메서드라 부른다.
-    Optional<User> findByAccountAndEmail(String account, String email);
+    User findFirstByPhoneNumberOrderByIdDesc(String phoneNumber);
 }
