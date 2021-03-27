@@ -17,6 +17,8 @@ public class Item {
     private String content;
 
     //1:N
+    //fetch 타입
+    //Lazy = 지연 로딩 , Eager = 즉시로딩.
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
     private List<OrderDetail> orderDetailList;
 }
