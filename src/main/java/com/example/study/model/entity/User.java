@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -23,17 +24,17 @@ public class User { //이 클래스 이름은 디비의 이름과 동일하게(�
     private Long id;
 //    @Column(name = "account")   이거도 마찬가지로 이름이 동일하면 안 써줘도 된다.
     private String account;
+    private String password;
     private String email;
     private String phoneNumber;
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime unregisteredAt;
     private LocalDate createdAt;
     private String createdBy;
     private LocalDate updatedAt;
     private String updatedBy;
 
-    //1:N
-
-    @OneToMany(fetch =  FetchType.LAZY,mappedBy = "user")
-    private List<OrderDetail> orderDetailList;
 
 }
 
