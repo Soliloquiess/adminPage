@@ -22,15 +22,41 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create(){
+        String account="Test01";
+        String password="Test01";
+        String status="REGISTERED";
+        String email="Test01@gmail.com";
+        String phoneNumber="010-1111-2222";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
+
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
+
+        User newUser = userRepository.save(user);
+        Assert.assertNotNull(newUser);
+
+
 
     }
 
-    
+
     @Test
     @Transactional
 //    public void read(@RequestParam Long id){    //get에 대해 아이디 받고 그걸 리턴시키는 형태로 작성도 가능
     public void read(){
-
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+        //User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2221");
+        //번호가 없으면 널이 들어옴. 근데 반드시 들어와야하기 때문에 Assert 사용 번호 없으면 에러 발생.
+        Assert.assertNotNull(user);
     }
 
     @Test
@@ -40,7 +66,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
         user.ifPresent(selectUser->{
            selectUser.setAccount("PPPP");
-           selectUser.setUpdatedAt(LocalDate.now());
+           selectUser.setUpdatedAt(LocalDateTime.now());
            selectUser.setUpdatedBy("update Method");
            //값은 이거만 바꿨지만  jpa에서는 셀렉트유저값에 들어있는 특정 아이디값을 검색하고 한번더 꺼낸 다음
             //한번 더 업데이트 쳐줌.
