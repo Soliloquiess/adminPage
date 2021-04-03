@@ -22,24 +22,35 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create(){
-        String account="Test01";
-        String password="Test01";
+        String account="Test03";
+        String password="Test03";
         String status="REGISTERED";
         String email="Test01@gmail.com";
-        String phoneNumber="010-1111-2222";
+        String phoneNumber="010-1111-3333";
         LocalDateTime registeredAt = LocalDateTime.now();
         LocalDateTime createdAt = LocalDateTime.now();
         String createdBy = "AdminServer";
 
+
         User user = new User();
+
+
         user.setAccount(account);
         user.setPassword(password);
         user.setStatus(status);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+
+        User u = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .build();
+
+//        user.setCreatedAt(createdAt);
+//        user.setCreatedBy(createdBy);
 
         User newUser = userRepository.save(user);
         Assert.assertNotNull(newUser);
@@ -56,6 +67,12 @@ public class UserRepositoryTest extends StudyApplicationTests {
         User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
         //User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2221");
         //번호가 없으면 널이 들어옴. 근데 반드시 들어와야하기 때문에 Assert 사용 번호 없으면 에러 발생.
+
+       user
+               .setEmail("")
+                .setPhoneNumber("")
+               .setStatus("");
+
         if(user!=null){
         user.getOrderGroupList().stream().forEach(orderGroup -> {
                 System.out.println("주문묶음");
