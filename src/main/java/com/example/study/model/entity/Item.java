@@ -28,6 +28,6 @@ public class Item {
     private String createdBy;
     private LocalDateTime updatedAt;
     private String updatedBy;
-
+    private Long partnerId;
 
 }
