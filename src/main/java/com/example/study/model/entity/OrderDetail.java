@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class OrderDetail {
+@ToString(exclude = {"orderGroup"})
+public class  OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +33,10 @@ public class OrderDetail {
     private String updatedBy;
 
     private Long itemId;
-    private Long orderGroupId;
 
+
+    //OrderDetail N: 1 OrderGroup
+//    private Long orderGroupId;
+    @ManyToOne
+    private  OrderGroup orderGroup;
 }

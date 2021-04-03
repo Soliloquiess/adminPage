@@ -4,19 +4,19 @@ package com.example.study.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class OrderGroup {
+@ToString(exclude = {"user", "orderDetailList"})   //유저는 tostring에서 제외해달라 사실 한쪽만 하면 상관이 없지만 공평성을 위해 해줬다.
+public class  OrderGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,5 +37,15 @@ public class OrderGroup {
     private String createdBy;
     private LocalDateTime updatedAt;
     private String updatedBy;
-    private Long userId;
+//    private Long userId;
+
+    //OrderGroup N: 1 User
+    @ManyToOne
+    private User user;//유저.자바에 있는 mappedBy와 일치해야함.
+    // private Long userId; 으로 관리하던걸 객체로 관리하겠다는 뜻.
+
+    //OrderGroup 1: N OrderDetail
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderGroup")
+    private List<OrderDetail> orderDetailList;
+
 }

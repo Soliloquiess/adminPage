@@ -56,8 +56,26 @@ public class UserRepositoryTest extends StudyApplicationTests {
         User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
         //User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2221");
         //번호가 없으면 널이 들어옴. 근데 반드시 들어와야하기 때문에 Assert 사용 번호 없으면 에러 발생.
+        if(user!=null){
+        user.getOrderGroupList().stream().forEach(orderGroup -> {
+                System.out.println("주문묶음");
+                System.out.println("수령인:" + orderGroup.getRevName());
+                System.out.println("수령지: " + orderGroup.getRevAddress());
+                System.out.println("총금액:" + orderGroup.getTotalPrice());
+                System.out.println("총수량:" + orderGroup.getTotalQuantity());
+
+                System.out.println("--------------주문상세--------------");
+
+                orderGroup.getOrderDetailList().forEach(orderDetail -> {
+                    System.out.println("주문상태" + orderDetail.getStatus());
+                    System.out.println("도착일자" + orderDetail.getArrivalDate());
+                });
+
+
+             });
+        }
         Assert.assertNotNull(user);
-    }
+    } 
 
     @Test
     public void update(){
