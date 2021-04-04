@@ -55,16 +55,47 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
                 .orElseGet(
                         ()->Header.ERROR("데이터 없음")
                 );
+
     }
 
     @Override
     public Header<UserApiResponse> update(Header<UserApiRequest> request) {
-        return null;
+        // 1. data
+        UserApiRequest userApiRequest = request.getData();
+
+        // 2. id -> user 데이터 를 찾고
+        Optional<User> optional = userRepository.findById(userApiRequest.getId());
+
+        return optional.map(user -> {
+            // 3. data -> update
+            // id
+            user.setAccount(userApiRequest.getAccount())
+                    .setPassword(userApiRequest.getPassword())
+                    .setStatus(userApiRequest.getStatus())
+                    .setPhoneNumber(userApiRequest.getPhoneNumber())
+                    .setEmail(userApiRequest.getEmail())
+                    .setRegisteredAt(userApiRequest.getRegisteredAt())
+                    .setUnregisteredAt(userApiRequest.getUnregisteredAt())
+            ;
+            return user;
+
+        })
+                .map(user -> userRepository.save(user))             // update -> newUser
+                .map(user -> response(user))                        // userApiResponse
+                .orElseGet(()->Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header delete(Long id) {
-        return null;
+        // 1. id -> repository -> user
+        Optional<User> optional = userRepository.findById(id);
+
+        // 2. repository -> delete
+        return optional.map(user ->{
+            userRepository.delete(user);
+            return Header.OK();
+        })
+                .orElseGet(()->Header.ERROR("데이터 없음"));
     }
 
     private Header<UserApiResponse> response(User user){
@@ -84,5 +115,4 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
         // Header + data return
         return Header.OK(userApiResponse);
     }
-
 }
