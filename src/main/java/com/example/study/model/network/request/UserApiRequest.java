@@ -26,8 +26,5 @@ public class UserApiRequest {
 
     private String phoneNumber;
 
-    private LocalDateTime registeredAt;
-
-    private LocalDateTime unregisteredAt;
 
 }

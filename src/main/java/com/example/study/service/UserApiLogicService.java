@@ -1,27 +1,26 @@
 package com.example.study.service;
 
-
 import com.example.study.ifs.CrudInterface;
 import com.example.study.model.entity.User;
 import com.example.study.model.network.Header;
 import com.example.study.model.network.request.UserApiRequest;
 import com.example.study.model.network.response.UserApiResponse;
 import com.example.study.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class UserApiLogicService implements CrudInterface<UserApiRequest, UserApiResponse> {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    // 1. request data
-    // 2. user 생성
-    // 3. 생성된 데이터 -> UserApiResponse return
+
+    //1. 리퀘스트 데이터 가져옴.
+    //2. 유저생성
+    //3 생성된 데이터 -> userapiresponse return
     @Override
     public Header<UserApiResponse> create(Header<UserApiRequest> request) {
 
@@ -40,9 +39,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
         User newUser = userRepository.save(user);
 
         // 3. 생성된 데이터 -> userApiResponse return
-
         return response(newUser);
-
     }
 
     @Override
@@ -52,13 +49,11 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
 
     @Override
     public Header<UserApiResponse> update(Header<UserApiRequest> request) {
-
         return null;
     }
 
     @Override
     public Header delete(Long id) {
-
         return null;
     }
 
@@ -79,4 +74,5 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
         // Header + data return
         return Header.OK(userApiResponse);
     }
+
 }
