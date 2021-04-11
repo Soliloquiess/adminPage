@@ -11,7 +11,7 @@ alter table `study`.`settlement` add sum_price varchar(100) not null default '0'
  */
 
 /*
-테이블은 만들었으나 api하는 점에서 잘 모르겠어서 나중에 답이나 타 동기생들의 좋은 코드같은거 올려주시면 감사하겠습니다..
+테이블은 만들었으나 api하는 점에서 잘 모르겠어서 나중에 멘토님께서 만드신 모범 답안이나 타 동기생들의 좋은 코드같은거 올려주시면 감사하겠습니다..
 */
 package com.example.study.controller.api;
 
