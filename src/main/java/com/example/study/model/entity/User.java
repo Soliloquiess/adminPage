@@ -33,7 +33,8 @@ public class User { //이 클래스 이름은 디비의 이름과 동일하게(�
     private String account;
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private String status;  //Registered/ unRegistered/ waiting
     private String email;
     private String phoneNumber;
     private LocalDateTime registeredAt;

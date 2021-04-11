@@ -1,3 +1,15 @@
+/*
+CREATE TABLE IF NOT EXISTS `study`.`settlement` (
+  `userid` INT NOT NULL AUTO_INCREMENT,
+  `price` VARCHAR(45) NULL,
+  PRIMARY KEY (`userid`))
+ENGINE = InnoDB;
+
+
+
+alter table `study`.`settlement` add sum_price varchar(100) not null default '0';
+ */
+
 package com.example.study.controller.api;
 
 import com.example.study.ifs.CrudInterface;
@@ -40,5 +52,10 @@ public class OrderGroupApiController implements CrudInterface<OrderGroupApiReque
     @DeleteMapping("{id}")
     public Header delete(@PathVariable Long id) {
         return orderGroupApiLogicService.delete(id);
+    }
+
+    @Override
+    public Header<OrderGroupApiResponse> sum(@PathVariable Long id){
+        return orderGroupApiLogicService.sum(id);
     }
 }
