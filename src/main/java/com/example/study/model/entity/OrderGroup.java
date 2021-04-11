@@ -1,10 +1,8 @@
 package com.example.study.model.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -22,6 +20,8 @@ import java.util.List;
 @Entity
 @ToString(exclude = {"user", "orderDetailList"})   //유저는 tostring에서 제외해달라 사실 한쪽만 하면 상관이 없지만 공평성을 위해 해줬다.
 @EntityListeners(AuditingEntityListener.class)
+@Builder
+@Accessors(chain=true)
  public class  OrderGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
