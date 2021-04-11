@@ -91,6 +91,19 @@ public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiReq
                 .orElseGet(()->Header.ERROR("데이터 없음"));
     }
 
+
+
+    /*시도했으나 잘 안됐습니다 ㅠ
+    @Override
+    public Header sum(Long id) {
+        return orderGroupRepository.findById(id)
+                .map(orderGroup -> {
+                    orderGroupRepository.sum(orderGroup);
+                    return Header.OK();
+                })
+                .orElseGet(()->Header.ERROR("데이터 없음"));
+    }
+    */
     private Header<OrderGroupApiResponse> response(OrderGroup orderGroup){
 
         OrderGroupApiResponse body = OrderGroupApiResponse.builder()
